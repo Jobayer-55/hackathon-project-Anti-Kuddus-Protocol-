@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Kuddus Protocol | Class 7B Resistance</title>
+    <!-- Tailwind CSS এবং Font Awesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Rajdhani', 'sans-serif'],
+                        body: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: { 900: '#080810', 800: '#0e0e1a', 700: '#14141f', 600: '#1a1a2e', 500: '#252538' },
+                        rebel: { 500: '#e63946', 400: '#ff4757', 300: '#ff6b6b', 600: '#c0392b' },
+                        ember: { 500: '#f4a261', 400: '#ffd166' },
+                        mint: { 500: '#2ecc71', 400: '#55efc4' },
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- আলাদা করা এক্সটার্নাল সিএসএস ফাইল লিঙ্ক -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="প্রধান নেভিগেশন">
+        <div class="sidebar-logo">
+            <h1><i class="fas fa-shield-halved" style="margin-right:6px;"></i>AKP</h1>
+            <p>Anti-Kuddus Protocol v1.0</p>
+        </div>
+        <nav class="nav-list">
+            <div class="nav-item active" data-panel="m1" onclick="switchPanel('m1')" tabindex="0" role="button" aria-label="মিশন ১: স্ট্রাইক পোর্টাল">
+                <i class="fas fa-gavel"></i>
+                <span>স্ট্রাইক পোর্টাল</span>
+                <span class="badge" id="strikeBadge">0/3</span>
+            </div>
+            <div class="nav-item" data-panel="m2" onclick="switchPanel('m2')" tabindex="0" role="button" aria-label="মিশন ২: সিট প্ল্যানার">
+                <i class="fas fa-th-large"></i>
+                <span>সিট প্ল্যানার</span>
+            </div>
+            <div class="nav-item" data-panel="m3" onclick="switchPanel('m3')" tabindex="0" role="button" aria-label="মিশন ৩: সিলেবাস পার্সার">
+                <i class="fas fa-file-alt"></i>
+                <span>সিলেবাস পার্সার</span>
+            </div>
+            <div class="nav-item" data-panel="m4" onclick="switchPanel('m4')" tabindex="0" role="button" aria-label="মিশন ৪: অর্থনৈতিক লেজার">
+                <i class="fas fa-coins"></i>
+                <span>অর্থনৈতিক লেজার</span>
+            </div>
+            <div class="nav-item" data-panel="m5" onclick="switchPanel('m5')" tabindex="0" role="button" aria-label="মিশন ৫: SOS ফ্লেয়ার">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>SOS রেসকিউ ফ্লেয়ার</span>
+            </div>
+            <div class="nav-item" data-panel="m6" onclick="switchPanel('m6')" tabindex="0" role="button" aria-label="মিশন ৬: ফ্যাক্ট চেকার">
+                <i class="fas fa-search"></i>
+                <span>ফ্যাক্ট চেকার</span>
+            </div>
+        </nav>
+        <div style="padding:16px 20px; border-top:1px solid var(--border); font-size:0.7rem; color:var(--muted);">
+            <i class="fas fa-user-secret" style="margin-right:4px;"></i> বিল্টু ও মিল্টুর অপারেশন
+        </div>
+    </aside>
+
+    <div class="main-content" id="mainContent">
+        <header class="top-bar">
+            <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="মেনু টগল">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="status-dot"></div>  
+        </header>
+
+        <section class="panel active" id="panel-m1" aria-label="স্ট্রাইক পোর্টাল">
+            <div id="loginPanel" class="login-panel">
+                <div class="lock-icon"><i class="fas fa-lock"></i></div>
+                <h3 style="font-family:'Rajdhani',sans-serif; font-size:1.6rem; font-weight:700; margin-bottom:8px;">সুরক্ষিত প্রবেশ</h3>
+                <p style="color:var(--muted); font-size:0.85rem; margin-bottom:28px;">রোল নম্বর ও গোপন কোড দিন</p>
+                <div class="card" style="text-align:left;">
+                    <div class="form-group">
+                        <label class="form-label" for="rollInput">রোল নম্বর</label>
+                        <input type="number" class="form-input" id="rollInput" min="1" max="40" placeholder="যেমন: 12">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="codeInput">গোপন কোড</label>
+                        <input type="number" class="form-input" id="codeInput" placeholder="বিল্টু যে কোড দিয়েছে">
+                    </div>
+                    <button class="btn btn-primary" style="width:100%;" onclick="handleLogin()">
+                        <i class="fas fa-sign-in-alt"></i> প্রবেশ করুন
+                    </button>
+                    <div class="hint-text">
+                        <i class="fas fa-info-circle"></i>
+                        ডেমো হিসেবে: কোড =  (রোল × ৭ + ৩) % ১০০
+                    </div>
+                </div>
+            </div>
+
+            <div id="complaintPanel" style="display:none;">
+                <div class="card" style="margin-bottom:24px;">
+                    <div class="card-title"><i class="fas fa-bolt"></i> ইমপিচমেন্ট প্রোগ্রেস</div>
+                    <div class="strike-bar-container">
+                        <div class="strike-bar-fill" id="strikeBarFill" style="width:0%;">
+                            <span id="strikeBarText">0/3</span>
+                        </div>
+                        <span class="strike-label">Strikes until Impeachment</span>
+                    </div>
+                    <p style="text-align:center; margin-top:12px; font-size:0.82rem; color:var(--muted);" id="strikeMessage">
+                        আরও অভিযোগ জমা দিন কুদ্দুসকে হটাতে!
+                    </p>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-pen"></i> নতুন অভিযোগ</div>
+                        <div class="form-group">
+                            <label class="form-label" for="complaintCategory">ক্যাটাগরি</label>
+                            <select class="form-select" id="complaintCategory">
+                                <option value="">ক্যাটাগরি নির্বাচন করুন</option>
+                                <option value="tifin_theft">টিফিন চুরি</option>
+                                <option value="bribe">ঘুষ (ওয়াশরুম টোল)</option>
+                                <option value="syllabus_bloat">সিলেবাস ব্লোট</option>
+                                <option value="seat_plan">মানব ঢাল সিট প্ল্যান</option>
+                                <option value="sports_abuse">খেলাধুলা নিয়ন্ত্রণ</option>
+                                <option value="other">অন্যান্য</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="complaintText">বিবরণ</label>
+                            <textarea class="form-textarea" id="complaintText" placeholder="কুদ্দুস কী করেছে বিস্তারিত লিখুন..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="submitComplaint()">
+                            <i class="fas fa-paper-plane"></i> গোপনে জমা দিন
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-list"></i> জমা পড়া অভিযোগ</div>
+                        <div id="complaintList">
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <p>এখনো কোনো অভিযোগ নেই</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="panel-m2" aria-label="সিট প্ল্যানার">
+            <div style="display:grid; grid-template-columns: 340px 1fr; gap:20px;">
+                <div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-user-plus"></i> শিক্ষার্থী যোগ করুন</div>
+                        <div class="form-group">
+                            <label class="form-label" for="stuName">নাম</label>
+                            <input type="text" class="form-input" id="stuName" placeholder="নাম লিখুন">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="stuRoll">রোল</label>
+                            <input type="number" class="form-input" id="stuRoll" min="1" max="99" placeholder="রোল নম্বর">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="stuHeight">উচ্চতা (সে.মি.)</label>
+                            <input type="number" class="form-input" id="stuHeight" min="100" max="200" placeholder="যেমন: 155">
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <button class="btn btn-primary btn-sm" onclick="addStudent()">
+                                <i class="fas fa-plus"></i> যোগ
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="addKuddus()">
+                                <i class="fas fa-crown"></i> কুদ্দুস যোগ
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title">
+                            <i class="fas fa-users"></i> শিক্ষার্থী তালিকা
+                            <span style="margin-left:auto; font-size:0.75rem; color:var(--muted);" id="studentCount">0 জন</span>
+                        </div>
+                        <div id="studentList" style="max-height:300px; overflow-y:auto;"></div>
+                        <button class="btn btn-success btn-sm" style="width:100%; margin-top:12px;" onclick="autoArrange()">
+                            <i class="fas fa-magic"></i> উচ্চতা অনুযায়ী সাজান
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-chalkboard"></i> ক্লাসরুম লেআউট</div>
+                    <div style="text-align:center; margin-bottom:8px;">
+                        <span class="grid-label" style="display:inline-block; padding:6px 20px; background:rgba(243,156,18,0.1); border:1px solid rgba(243,156,18,0.2); border-radius:6px; color:var(--ember);">
+                            <i class="fas fa-chalkboard-teacher"></i> শিক্ষকের টেবিল
+                        </span>
+                    </div>
+                    <div id="classroomGrid" class="classroom-grid" style="grid-template-columns: repeat(6, 1fr);"></div>
+                    <div style="margin-top:16px; display:flex; gap:16px; justify-content:center; font-size:0.72rem; color:var(--muted);">
+                        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(46,204,113,0.12);border:1px solid rgba(46,204,113,0.3);vertical-align:middle;margin-right:4px;"></span> ছোট</span>
+                        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(243,156,18,0.12);border:1px solid rgba(243,156,18,0.3);vertical-align:middle;margin-right:4px;"></span> মাঝারি</span>
+                        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.3);vertical-align:middle;margin-right:4px;"></span> লম্বা</span>
+                        <span><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:rgba(230,57,70,0.6);border:1px solid var(--accent);vertical-align:middle;margin-right:4px;"></span> কুদ্দুস</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="panel-m3" aria-label="সিলেবাস পার্সার">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-paste"></i> কুদ্দুসের সিলেবাস পেস্ট করুন</div>
+                    <div class="form-group">
+                        <label class="form-label" for="syllabusInput">সম্পূর্ণ সিলেবাস টেক্সট</label>
+                        <textarea class="form-textarea" id="syllabusInput" style="min-height:320px;" placeholder="কুদ্দুস যে ভয়ানক সিলেবাস দিয়েছে সেটা এখানে পেস্ট করুন...&#10;&#10;উদাহরণ:&#10;অধ্যায় ১ থেকে অধ্যায় ৭ পর্যন্ত সব পড়বে। লেখকের জীবনী, বইয়ের ইনডেক্স, পেছনের কভারের বারকোড, প্রকাশকের ঠিকানা, ISBN নম্বর — সব আসবে। পরীক্ষা ১০ নম্বরের হলেও তোমাদের সব পড়তে হবে।"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="parseSyllabus()">
+                        <i class="fas fa-cogs"></i> বিশ্লেষণ করুন
+                    </button>
+                </div>
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-check-circle"></i> প্রকৃত পড়ার বিষয়</div>
+                    <div id="syllabusResult">
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>সিলেবাস পেস্ট করে বিশ্লেষণ করুন</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="panel-m4" aria-label="অর্থনৈতিক লেজার">
+            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; margin-bottom:20px;">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCash">0</div>
+                    <div class="stat-label">মোট চাঁদাবাজি (টাকা)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalFood">0</div>
+                    <div class="stat-label">মোট চুরি হওয়া খাবার</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="cricketBats">0</div>
+                    <div class="stat-label">ক্রিকেট ব্যাট কেনা যাবে</div>
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 340px 1fr; gap:20px;">
+                <div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-plus-circle"></i> নতুন এন্ট্রি</div>
+                        <div class="form-group">
+                            <label class="form-label" for="ledgerType">ধরন</label>
+                            <select class="form-select" id="ledgerType">
+                                <option value="washroom">ওয়াশরুম টোল (২ টাকা)</option>
+                                <option value="tiffin">টিফিন চুরি</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="ledgerAmountGroup">
+                            <label class="form-label" for="ledgerAmount">পরিমাণ (টাকা)</label>
+                            <input type="number" class="form-input" id="ledgerAmount" value="2" min="1">
+                        </div>
+                        <div class="form-group" id="ledgerItemGroup" style="display:none;">
+                            <label class="form-label" for="ledgerItem">খাবারের নাম</label>
+                            <input type="text" class="form-input" id="ledgerItem" placeholder="যেমন: ভুনা চাল">
+                        </div>
+                        <button class="btn btn-primary btn-sm" style="width:100%;" onclick="addLedgerEntry()">
+                            <i class="fas fa-save"></i> সংরক্ষণ করুন
+                        </button>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-history"></i> সাম্প্রতিক এন্ট্রি</div>
+                        <div id="ledgerList" style="max-height:250px; overflow-y:auto;"></div>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-chart-bar"></i> দৈনিক চাঁদাবাজি</div>
+                        <div class="chart-container">
+                            <canvas id="cashChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-chart-pie"></i> চুরি হওয়া খাবার</div>
+                        <div class="chart-container">
+                            <canvas id="foodChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="panel-m5" aria-label="SOS রেসকিউ ফ্লেয়ার">
+            <div style="text-align:center; padding:40px 0 30px;">
+                <p style="color:var(--muted); font-size:0.85rem; margin-bottom:24px;">কুদ্দুস করিডোরে ধরলে এই বাটন চাপুন</p>
+                <button class="sos-btn" onclick="triggerSOS()" aria-label="SOS অ্যালার্ট পাঠান">
+                    SOS
+                </button>
+                <div style="margin-top:24px; max-width:300px; margin-left:auto; margin-right:auto;">
+                    <select class="form-select" id="sosLocation">
+                        <option value="classroom">ক্লাসরুম</option>
+                        <option value="corridor">করিডোর</option>
+                        <option value="library">লাইব্রেরি</option>
+                        <option value="playground">খেলার মাঠ</option>
+                        <option value="canteen">ক্যান্টিন</option>
+                        <option value="washroom">ওয়াশরুম</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-broadcast-tower"></i> অ্যাক্টিভ অ্যালার্ট ড্যাশবোর্ড
+                    <span style="margin-left:auto; font-size:0.75rem; color:var(--accent);" id="activeSosCount">0 টি অ্যালার্ট</span>
+                </div>
+                <p style="font-size:0.78rem; color:var(--muted); margin-bottom:16px;">বিল্টু ও মিল্টুর জন্য — রিয়েল-টাইম ডিস্ট্রেস সিগন্যাল</p>
+                <div id="sosAlerts">
+                    <div class="empty-state">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>কোনো অ্যাক্টিভ SOS অ্যালার্ট নেই</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="panel-m6" aria-label="ফ্যাক্ট চেকার">
+            <div class="card" style="margin-bottom:20px;">
+                <div class="card-title"><i class="fas fa-balance-scale"></i> কুদ্দুসের দাবি যাচাই করুন</div>
+                <p style="font-size:0.82rem; color:var(--muted); margin-bottom:16px;">
+                    কুদ্দুস ভুয়া নিয়ম বানিয়ে বলছে? স্কুলের আসল নিয়মাবলীতে খুঁজে দেখুন।
+                </p>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" class="form-input" id="factSearchInput" placeholder="কুদ্দুস কী বলেছে সেটা লিখুন..." style="flex:1;">
+                    <button class="btn btn-primary" onclick="searchFact()">
+                        <i class="fas fa-search"></i> খুঁজুন
+                    </button>
+                </div>
+            </div>
+            <div id="factResults">
+                <div class="card">
+                    <div class="empty-state">
+                        <i class="fas fa-gavel"></i>
+                        <p>উপরে কুদ্দুসের দাবি লিখে সার্চ করুন</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="impeachment-overlay" id="impeachmentOverlay">
+        <h1>IMPEACHED</h1>
+        <p>কোডু কুদ্দুস অপসারিত হয়েছে!</p>
+        <p style="font-size:0.9rem; margin-top:8px; color:var(--ember);">ক্লাস ৭-B আবার মুক্ত!</p>
+        <button class="btn btn-secondary" style="margin-top:30px;" onclick="dismissImpeachment()">
+            <i class="fas fa-times"></i> বন্ধ করুন
+        </button>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- ইন্টারঅ্যাক্টিভিটির স্ক্রিপ্ট সমূহ -->
+    <script>
+        const APP_KEY = 'akp_';
+        let state = {
+            loggedIn: false,
+            currentRoll: null,
+            complaints: [],
+            students: [],
+            ledger: [],
+            sosAlerts: [],
+            gridCols: 6,
+            gridRows: 5
+        };
+
+        function loadState() {
+            try {
+                const complaints = localStorage.getItem(APP_KEY + 'complaints');
+                const students = localStorage.getItem(APP_KEY + 'students');
+                const ledger = localStorage.getItem(APP_KEY + 'ledger');
+                const sos = localStorage.getItem(APP_KEY + 'sos');
+                if (complaints) state.complaints = JSON.parse(complaints);
+                if (students) state.students = JSON.parse(students);
+                if (ledger) state.ledger = JSON.parse(ledger);
+                if (sos) state.sosAlerts = JSON.parse(sos);
+            } catch (e) {
+                console.warn('স্টেট লোড করতে সমস্যা:', e);
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(APP_KEY + 'complaints', JSON.stringify(state.complaints));
+                localStorage.setItem(APP_KEY + 'students', JSON.stringify(state.students));
+                localStorage.setItem(APP_KEY + 'ledger', JSON.stringify(state.ledger));
+                localStorage.setItem(APP_KEY + 'sos', JSON.stringify(state.sosAlerts));
+            } catch (e) {
+                console.warn('স্টেট সেভ করতে সমস্যা:', e);
+            }
+        }
+
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return 'AKP-' + Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
+        }
+
+        function generateSecretCode(roll) {
+            return (roll * 7 + 3) % 100;
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = { success: 'fa-check-circle', error: 'fa-times-circle', warning: 'fa-exclamation-circle', info: 'fa-info-circle' };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 3200);
+        }
+
+        function formatTime(timestamp) {
+            const d = new Date(timestamp);
+            return d.toLocaleDateString('bn-BD') + ' ' + d.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        const categoryNames = {
+            tifin_theft: 'টিফিন চুরি',
+            bribe: 'ঘুষ (ওয়াশরুম)',
+            syllabus_bloat: 'সিলেবাস ব্লোট',
+            seat_plan: 'সিট প্ল্যান',
+            sports_abuse: 'খেলাধুলা নিয়ন্ত্রণ',
+            other: 'অন্যান্য'
+        };
+
+        const categoryColors = {
+            tifin_theft: '#2ecc71',
+            bribe: '#f39c12',
+            syllabus_bloat: '#e74c3c',
+            seat_plan: '#9b59b6',
+            sports_abuse: '#3498db',
+            other: '#95a5a6'
+        };
+
+        const locationNames = {
+            classroom: 'ক্লাসরুম',
+            corridor: 'করিডোর',
+            library: 'লাইব্রেরি',
+            playground: 'খেলার মাঠ',
+            canteen: 'ক্যান্টিন',
+            washroom: 'ওয়াশরুম'
+        };
+
+        const panelTitles = {
+            m1: 'মিশন ১: স্ট্রাইক পোর্টাল',
+            m2: 'মিশন ২: সিট প্ল্যানার',
+            m3: 'মিশন ৩: সিলেবাস পার্সার',
+            m4: 'মিশন ৪: অর্থনৈতিক লেজার',
+            m5: 'মিশন ৫: SOS রেসকিউ ফ্লেয়ার',
+            m6: 'মিশন ৬: ফ্যাক্ট চেকার'
+        };
+
+        function switchPanel(id) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+            const panel = document.getElementById('panel-' + id);
+            if (panel) panel.classList.add('active');
+            const navItem = document.querySelector(`.nav-item[data-panel="${id}"]`);
+            if (navItem) navItem.classList.add('active');
+
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebarOverlay').classList.remove('show');
+            }
+
+            if (id === 'm4') {
+                setTimeout(() => { updateCharts(); }, 100);
+            }
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('show');
+            } else {
+                sidebar.classList.toggle('collapsed');
+                document.getElementById('mainContent').classList.toggle('expanded');
+            }
+        }
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    item.click();
+                }
+            });
+        });
+
+        function handleLogin() {
+            const roll = parseInt(document.getElementById('rollInput').value);
+            const code = parseInt(document.getElementById('codeInput').value);
+
+            if (!roll || roll < 1 || roll > 40) {
+                showToast('সঠিক রোল নম্বর দিন (১-৪০)', 'error');
+                return;
+            }
+
+            const expectedCode = generateSecretCode(roll);
+            if (code !== expectedCode) {
+                showToast('গোপন কোড ভুল! বিল্টুর কাছে নিশ্চিত হন।', 'error');
+                return;
+            }
+
+            state.loggedIn = true;
+            state.currentRoll = roll;
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('complaintPanel').style.display = 'block';
+            showToast(`রোল ${roll} হিসেবে গোপনে প্রবেশ সম্পন্ন`, 'success');
+            updateStrikeBar();
+            renderComplaints();
+        }
+
+        function submitComplaint() {
+            const category = document.getElementById('complaintCategory').value;
+            const text = document.getElementById('complaintText').value.trim();
+
+            if (!category) {
+                showToast('ক্যাটাগরি নির্বাচন করুন', 'warning');
+                return;
+            }
+            if (!text || text.length < 10) {
+                showToast('কমপক্ষে ১০ অক্ষরে বিবরণ লিখুন', 'warning');
+                return;
+            }
+
+            const complaint = {
+                id: Date.now(),
+                category: category,
+                text: text,
+                hashedRoll: simpleHash(String(state.currentRoll)),
+                timestamp: Date.now()
+            };
+
+            state.complaints.push(complaint);
+            saveState();
+
+            document.getElementById('complaintCategory').value = '';
+            document.getElementById('complaintText').value = '';
+
+            showToast('অভিযোগ গোপনে জমা হয়েছে!', 'success');
+            updateStrikeBar();
+            renderComplaints();
+
+            if (state.complaints.length >= 3) {
+                setTimeout(() => {
+                    document.getElementById('impeachmentOverlay').classList.add('show');
+                }, 800);
+            }
+        }
+
+        function updateStrikeBar() {
+            const count = state.complaints.length;
+            const pct = Math.min((count / 3) * 100, 100);
+            const fill = document.getElementById('strikeBarFill');
+            const text = document.getElementById('strikeBarText');
+            const msg = document.getElementById('strikeMessage');
+            const badge = document.getElementById('strikeBadge');
+
+            if (fill) fill.style.width = pct + '%';
+            if (text) text.textContent = count + '/3';
+            if (badge) badge.textContent = count + '/3';
+
+            if (msg) {
+                if (count === 0) {
+                    msg.textContent = 'আরও অভিযোগ জমা দিন কুদ্দুসকে হটাতে!';
+                    msg.style.color = 'var(--muted)';
+                } else if (count === 1) {
+                    msg.textContent = 'প্রথম স্ট্রাইক! আরও ২টি লাগবে।';
+                    msg.style.color = 'var(--warning)';
+                } else if (count === 2) {
+                    msg.textContent = 'দ্বিতীয় স্ট্রাইক! আর মাত্র ১টি!';
+                    msg.style.color = 'var(--accent)';
+                } else {
+                    msg.textContent = 'ইমপিচমেন্ট সক্রিয়! কুদ্দুস অপসারিত!';
+                    msg.style.color = 'var(--success)';
+                }
+            }
+        }
+
+        function renderComplaints() {
+            const list = document.getElementById('complaintList');
+            if (!list) return;
+            if (state.complaints.length === 0) {
+                list.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>এখনো কোনো অভিযোগ নেই</p></div>';
+                return;
+            }
+
+            list.innerHTML = state.complaints.slice().reverse().map(c => `
+                <div class="complaint-card">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+                        <span class="cat-badge" style="background:${categoryColors[c.category]}22; color:${categoryColors[c.category]};">
+                            ${categoryNames[c.category]}
+                        </span>
+                        <span style="margin-left:auto; font-size:0.68rem; color:var(--muted);">${formatTime(c.timestamp)}</span>
+                    </div>
+                    <p style="font-size:0.84rem; line-height:1.5; color:var(--text);">${c.text}</p>
+                    <p style="font-size:0.65rem; color:var(--muted); margin-top:6px; font-family:monospace;">
+                        <i class="fas fa-fingerprint" style="margin-right:4px;"></i>${c.hashedRoll}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        function dismissImpeachment() {
+            document.getElementById('impeachmentOverlay').classList.remove('show');
+        }
+
+        const sampleStudents = [
+            { name: 'রাফি', roll: 3, height: 148, isKuddus: false },
+            { name: 'তানভীর', roll: 5, height: 152, isKuddus: false },
+            { name: 'সাকিব', roll: 7, height: 145, isKuddus: false },
+            { name: 'নাফিস', roll: 9, height: 158, isKuddus: false },
+            { name: 'আরিف', roll: 11, height: 163, isKuddus: false },
+            { name: 'সুমন', roll: 13, height: 170, isKuddus: false },
+            { name: 'রাহাত', roll: 15, height: 155, isKuddus: false },
+            { name: 'ফাহিম', roll: 17, height: 167, isKuddus: false },
+            { name: 'মেহেদী', roll: 19, height: 160, isKuddus: false },
+            { name: 'ইমরান', roll: 21, height: 172, isKuddus: false },
+            { name: 'তাসনিম', roll: 23, height: 143, isKuddus: false },
+            { name: 'জান্নাতুল', roll: 25, height: 150, isKuddus: false },
+            { name: 'প্রীতি', roll: 27, height: 147, isKuddus: false },
+            { name: 'শাহরিয়ার', roll: 29, height: 165, isKuddus: false },
+            { name: 'কুদ্দুস', roll: 1, height: 156, isKuddus: true },
+        ];
+
+        function initStudents() {
+            if (state.students.length === 0) {
+                state.students = [...sampleStudents];
+                saveState();
+            }
+        }
+
+        function addStudent() {
+            const name = document.getElementById('stuName').value.trim();
+            const roll = parseInt(document.getElementById('stuRoll').value);
+            const height = parseInt(document.getElementById('stuHeight').value);
+
+            if (!name) { showToast('নাম দিন', 'warning'); return; }
+            if (!roll || roll < 1) { showToast('সঠিক রোল দিন', 'warning'); return; }
+            if (!height || height < 100 || height > 200) { showToast('উচ্চতা ১০০-২০০ সে.ми. এর মধ্যে হতে হবে', 'warning'); return; }
+            if (state.students.find(s => s.roll === roll)) { showToast('এই রোল আগে থেকেই আছে', 'error'); return; }
+
+            state.students.push({ name, roll, height, isKuddus: false });
+            saveState();
+            document.getElementById('stuName').value = '';
+            document.getElementById('stuRoll').value = '';
+            document.getElementById('stuHeight').value = '';
+            renderStudents();
+            renderGrid();
+            showToast(`${name} যোগ হয়েছে`, 'success');
+        }
+
+        function addKuddus() {
+            if (state.students.find(s => s.isKuddus)) {
+                showToast('কুদ্দুস ইতিমধ্যে আছে', 'warning');
+                return;
+            }
+            state.students.push({ name: 'কুদ্দুস', roll: 1, height: 156, isKuddus: true });
+            saveState();
+            renderStudents();
+            renderGrid();
+            showToast('কুদ্দুস যোগ হয়েছে — সিট প্ল্যানে দেখুন', 'info');
+        }
+
+        function removeStudent(roll) {
+            state.students = state.students.filter(s => s.roll !== roll);
+            saveState();
+            renderStudents();
+            renderGrid();
+        }
+
+        function autoArrange() {
+            const kuddus = state.students.filter(s => s.isKuddus);
+            const others = state.students.filter(s => !s.isKuddus).sort((a, b) => a.height - b.height);
+
+            const arranged = [...others];
+            const kuddusIndex = Math.min(12 + 2, arranged.length);
+            arranged.splice(kuddusIndex, 0, ...kuddus);
+
+            state.students = arranged;
+            saveState();
+            renderStudents();
+            renderGrid();
+            showToast('উচ্চতা অনুযায়ী সাজানো হয়েছে — ছোটরা সামনে, কুদ্দুস ৩য় সারিতে', 'success');
+        }
+
+        function getDeskColor(height) {
+            if (height < 150) return 'rgba(46,204,113,0.12)';
+            if (height < 160) return 'rgba(243,156,18,0.12)';
+            return 'rgba(230,57,70,0.12)';
+        }
+
+        function getDeskBorderColor(height) {
+            if (height < 150) return 'rgba(46,204,113,0.3)';
+            if (height < 160) return 'rgba(243,156,18,0.3)';
+            return 'rgba(230,57,70,0.3)';
+        }
+
+        function renderStudents() {
+            const list = document.getElementById('studentList');
+            const count = document.getElementById('studentCount');
+            if (count) count.textContent = state.students.length + ' জন';
+            if (!list) return;
+
+            if (state.students.length === 0) {
+                list.innerHTML = '<div class="empty-state" style="padding:20px;"><i class="fas fa-user-slash" style="font-size:1.5rem;"></i><p>কোনো শিক্ষার্থী নেই</p></div>';
+                return;
+            }
+
+            list.innerHTML = state.students.map(s => `
+                <div class="student-row">
+                    ${s.isKuddus ? '<i class="fas fa-crown" style="color:var(--accent);"></i>' : '<i class="fas fa-user" style="color:var(--muted);"></i>'}
+                    <span style="font-weight:600; color:${s.isKuddus ? 'var(--accent)' : 'var(--text)'};">${s.name}</span>
+                    <span style="color:var(--muted); font-size:0.75rem;">রোল: ${s.roll}</span>
+                    <span class="height-badge">${s.height} সে.মি.</span>
+                    <button class="remove-btn" onclick="removeStudent(${s.roll})" title="সরান" aria-label="${s.name} সরান">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('classroomGrid');
+            if (!grid) return;
+            const totalSeats = state.gridCols * state.gridRows;
+            grid.style.gridTemplateColumns = `repeat(${state.gridCols}, 1fr)`;
+
+            let html = '';
+            for (let i = 0; i < totalSeats; i++) {
+                const student = state.students[i];
+                if (student) {
+                    const isK = student.isKuddus;
+                    html += `
+                        <div class="desk occupied ${isK ? 'kuddus' : ''}"
+                             style="background:${isK ? 'rgba(230,57,70,0.1)' : getDeskColor(student.height)};
+                                    border-color:${isK ? 'var(--accent)' : getDeskBorderColor(student.height)};">
+                            ${isK ? '<i class="fas fa-crown" style="color:var(--accent);font-size:0.65rem;margin-bottom:2px;"></i>' : ''}
+                            <div class="desk-name" style="${isK ? 'color:var(--accent);' : ''}">${student.name}</div>
+                            <div class="desk-info">রোল ${student.roll} | ${student.height}cm</div>
+                        </div>
+                    `;
+                } else {
+                    html += '<div class="desk" style="opacity:0.3;"><div class="desk-name" style="color:var(--muted);">ফাঁকা</div></div>';
+                }
+            }
+            grid.innerHTML = html;
+        }
+
+        function parseSyllabus() {
+            const text = document.getElementById('syllabusInput').value.trim();
+            if (!text || text.length < 20) {
+                showToast('সিলেবাস টেক্সট পেস্ট করুন', 'warning');
+                return;
+            }
+
+            const garbagePhrases = [
+                'বারকোড', 'barcode', 'isbn', 'প্রকাশক', 'পেছনের কভার', 'মুদ্রণ',
+                'লেখকের জীবনী', 'জীবনী', 'ইনডেক্স', 'index', 'সূচিপত্র',
+                'ঠিকানা', 'ফোন নম্বর', 'ইমেইল', 'ওয়েবসাইট', 'কপিরাইট',
+                'প্রথম প্রকাশ', 'দ্বিতীয় প্রকাশ', 'সংস্করণ', 'মূল্য',
+                'প্রচ্ছদ', 'cover', 'সহায়ক', 'appendix'
+            ];
+
+            const chapterPatterns = [
+                /অধ্যায়\s*[০-৯]+[^।\n]*/gi,
+                /ধারা[\s০-৯]+[^।\n]*/gi,
+                /পাঠ[\s০-৯]+[^।\n]*/gi,
+                /অংশ[\s০-৯]+[^।\n]*/gi,
+                /chapter\s*\d+[^.\n]*/gi,
+                /unit\s*\d+[^.\n]*/gi,
+                /(?:section|part)\s*\d+[^.\n]*/gi
+            ];
+
+            let topics = [];
+
+            chapterPatterns.forEach(pattern => {
+                const matches = text.match(pattern);
+                if (matches) {
+                    matches.forEach(m => {
+                        const clean = m.trim().replace(/[:;,\-—]/g, '').trim();
+                        if (clean.length > 3 && clean.length < 100) {
+                            const isGarbage = garbagePhrases.some(g => clean.toLowerCase().includes(g.toLowerCase()));
+                            if (!isGarbage && !topics.includes(clean)) {
+                                topics.push(clean);
+                            }
+                        }
+                    });
+                }
+            });
+
+            if (topics.length === 0) {
+                const lines = text.split(/[।\n.]+/).map(l => l.trim()).filter(l => l.length > 5);
+                lines.forEach(line => {
+                    if (/^[০-৯]+[.)\]】:]/.test(line) || /^[-•●▪️▸►]/.test(line)) {
+                        const clean = line.replace(/^[০-৯.)\]】：\-\s•●▪️▸►]+/, '').trim();
+                        if (clean.length > 3) {
+                            const isGarbage = garbagePhrases.some(g => clean.toLowerCase().includes(g.toLowerCase()));
+                            if (!isGarbage) topics.push(clean);
+                        }
+                    }
+                });
+            }
+
+            if (topics.length === 0) {
+                const sentences = text.split(/[।\n]+/).map(s => s.trim()).filter(s => s.length > 8);
+                sentences.forEach(s => {
+                    const isGarbage = garbagePhrases.some(g => s.toLowerCase().includes(g.toLowerCase()));
+                    if (!isGarbage && s.length < 120) {
+                        topics.push(s);
+                    }
+                });
+            }
+
+            const resultDiv = document.getElementById('syllabusResult');
+            if (!resultDiv) return;
+
+            if (topics.length === 0) {
+                resultDiv.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle" style="color:var(--warning);"></i>
+                        <p>কোনো পরীক্ষার বিষয় পাওয়া যায়নি। সিলেবাস টেক্সট আবার চেক করুন।</p>
+                    </div>
+                `;
+                return;
+            }
+            let garbageFound = [];
+            garbagePhrases.forEach(g => {
+                if (text.toLowerCase().includes(g.toLowerCase())) {
+                    garbageFound.push(g);
+                }
+            });
+
+            let html = '';
+            if (garbageFound.length > 0) {
+                html += `
+                    <div style="padding:12px 16px; background:rgba(230,57,70,0.06); border:1px solid rgba(230,57,70,0.15);
+                                border-radius:8px; margin-bottom:16px; font-size:0.82rem;">
+                        <span style="color:var(--accent); font-weight:600;"><i class="fas fa-trash" style="margin-right:6px;"></i>ফিল্টার করা হয়েছে:</span>
+                        <span style="color:var(--muted);">${garbageFound.join(', ')}</span>
+                    </div>
+                `;
+            }
+
+            html += `<p style="font-size:0.82rem; color:var(--success); margin-bottom:14px; font-weight:600;">
+                <i class="fas fa-check-circle" style="margin-right:6px;"></i>${topics.length}টি প্রকৃত পরীক্ষার বিষয় পাওয়া গেছে
+            </p>`;
+
+            topics.forEach((topic, i) => {
+                html += `
+                    <div class="summary-bullet">
+                        <span class="bullet-num">${i + 1}</span>
+                        <span>${topic}</span>
+                    </div>
+                `;
+            });
+
+            resultDiv.innerHTML = html;
+            showToast(`${topics.length}টি বিষয় বের করা হয়েছে`, 'success');
+        }
+
+        let cashChartInstance = null;
+        let foodChartInstance = null;
+        const CRICKET_BAT_PRICE = 1500;
+
+        const sampleLedger = [
+            { type: 'washroom', amount: 2, item: '', timestamp: Date.now() - 86400000 * 4 },
+            { type: 'tiffin', amount: 0, item: 'ভুনা চাল', timestamp: Date.now() - 86400000 * 3 },
+            { type: 'washroom', amount: 2, item: '', timestamp: Date.now() - 86400000 * 3 },
+            { type: 'washroom', amount: 2, item: '', timestamp: Date.now() - 86400000 * 2 },
+            { type: 'tiffin', amount: 0, item: 'স্যান্ডউইচ', timestamp: Date.now() - 86400000 * 2 },
+            { type: 'washroom', amount: 2, item: '', timestamp: Date.now() - 86400000 },
+            { type: 'tiffin', amount: 0, item: 'ফ্রায়েড রাইস', timestamp: Date.now() - 86400000 },
+            { type: 'washroom', amount: 2, item: '', timestamp: Date.now() },
+        ];
+
+        function initLedger() {
+            if (state.ledger.length === 0) {
+                state.ledger = [...sampleLedger];
+                saveState();
+            }
+        }
+
+        const ledgerTypeEl = document.getElementById('ledgerType');
+        if (ledgerTypeEl) {
+            ledgerTypeEl.addEventListener('change', function() {
+                const isWashroom = this.value === 'washroom';
+                document.getElementById('ledgerAmountGroup').style.display = isWashroom ? 'block' : 'none';
+                document.getElementById('ledgerItemGroup').style.display = isWashroom ? 'none' : 'block';
+            });
+        }
+
+        function addLedgerEntry() {
+            const type = document.getElementById('ledgerType').value;
+            let entry = { type, timestamp: Date.now() };
+
+            if (type === 'washroom') {
+                entry.amount = parseInt(document.getElementById('ledgerAmount').value) || 2;
+                entry.item = '';
+            } else {
+                const item = document.getElementById('ledgerItem').value.trim();
+                if (!item) { showToast('খাবারের নাম দিন', 'warning'); return; }
+                entry.amount = 0;
+                entry.item = item;
+            }
+
+            state.ledger.push(entry);
+            saveState();
+
+            document.getElementById('ledgerItem').value = '';
+            document.getElementById('ledgerAmount').value = '2';
+
+            updateLedgerUI();
+            showToast('এন্ট্রি সংরক্ষিত হয়েছে', 'success');
+        }
+
+        function updateLedgerUI() {
+            const totalCash = state.ledger.filter(e => e.type === 'washroom').reduce((sum, e) => sum + e.amount, 0);
+            const totalFood = state.ledger.filter(e => e.type === 'tiffin').length;
+            const bats = Math.floor(totalCash / CRICKET_BAT_PRICE);
+
+            const totalCashEl = document.getElementById('totalCash');
+            const totalFoodEl = document.getElementById('totalFood');
+            const cricketBatsEl = document.getElementById('cricketBats');
+
+            if (totalCashEl) totalCashEl.textContent = totalCash + '৳';
+            if (totalFoodEl) totalFoodEl.textContent = totalFood;
+            if (cricketBatsEl) cricketBatsEl.textContent = bats;
+
+            renderLedgerList();
+            updateCharts();
+        }
+
+        function renderLedgerList() {
+            const list = document.getElementById('ledgerList');
+            if (!list) return;
+            if (state.ledger.length === 0) {
+                list.innerHTML = '<div class="empty-state" style="padding:20px;"><p>কোনো এন্ট্রি নেই</p></div>';
+                return;
+            }
+
+            list.innerHTML = state.ledger.slice().reverse().slice(0, 20).map(e => {
+                const isCash = e.type === 'washroom';
+                return `
+                    <div class="ledger-entry">
+                         <div class="entry-icon ${isCash ? 'cash' : 'food'}">
+                            <i class="fas ${isCash ? 'fa-money-bill-wave' : 'fa-utensils'}"></i>
+                        </div>
+                        <div style="flex:1;">
+                            <div style="font-weight:600; font-size:0.82rem;">
+                                ${isCash ? e.amount + ' টাকা ওয়াশরুম টোল' : e.item + ' টিফিন চুরি'}
+                            </div>
+                            <div style="font-size:0.7rem; color:var(--muted);">${formatTime(e.timestamp)}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateCharts() {
+            const cashByDay = {};
+            state.ledger.filter(e => e.type === 'washroom').forEach(e => {
+                const day = new Date(e.timestamp).toLocaleDateString('bn-BD', { month: 'short', day: 'numeric' });
+                cashByDay[day] = (cashByDay[day] || 0) + e.amount;
+            });
+
+            const cashLabels = Object.keys(cashByDay);
+            const cashValues = Object.values(cashByDay);
+
+            const cashCanvas = document.getElementById('cashChart');
+            if (cashCanvas) {
+                if (cashChartInstance) cashChartInstance.destroy();
+                const cashCtx = cashCanvas.getContext('2d');
+                cashChartInstance = new Chart(cashCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: cashLabels.length ? cashLabels : ['ডেটা নেই'],
+                        datasets: [{
+                            label: 'টাকা',
+                            data: cashValues.length ? cashValues : [0],
+                            backgroundColor: 'rgba(243,156,18,0.3)',
+                            borderColor: 'rgba(243,156,18,0.8)',
+                            borderWidth: 1,
+                            borderRadius: 6,
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { ticks: { color: '#6b6b80', font: { size: 11 } }, grid: { color: 'rgba(37,37,53,0.5)' } },
+                            y: { ticks: { color: '#6b6b80', font: { size: 11 } }, grid: { color: 'rgba(37,37,53,0.5)' }, beginAtZero: true }
+                        }
+                    }
+                });
+            }
+
+            const foodCount = {};
+            state.ledger.filter(e => e.type === 'tiffin').forEach(e => {
+                foodCount[e.item] = (foodCount[e.item] || 0) + 1;
+            });
+
+            const foodLabels = Object.keys(foodCount);
+            const foodValues = Object.values(foodCount);
+            const foodColors = ['#e63946', '#f4a261', '#2ecc71', '#3498db', '#9b59b6', '#1abc9c', '#e74c3c'];
+
+            const foodCanvas = document.getElementById('foodChart');
+            if (foodCanvas) {
+                if (foodChartInstance) foodChartInstance.destroy();
+                const foodCtx = foodCanvas.getContext('2d');
+                foodChartInstance = new Chart(foodCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: foodLabels.length ? foodLabels : ['ডেটা নেই'],
+                        datasets: [{
+                            data: foodValues.length ? foodValues : [1],
+                            backgroundColor: foodLabels.length ? foodColors.slice(0, foodLabels.length) : ['rgba(37,37,53,0.5)'],
+                            borderColor: '#11111b',
+                            borderWidth: 3,
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#6b6b80', font: { size: 11 }, padding: 12, usePointStyle: true }
+                            }
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+        }
+
+        function triggerSOS() {
+            const location = document.getElementById('sosLocation').value;
+            const alert = {
+                id: Date.now(),
+                location: location,
+                timestamp: Date.now(),
+                status: 'active'
+            };
+
+            state.sosAlerts.push(alert);
+            saveState();
+            renderSosAlerts();
+            showToast(`${locationNames[location]} থেকে SOS পাঠানো হয়েছে!`, 'error');
+        }
+
+        function resolveSos(id) {
+            const alert = state.sosAlerts.find(a => a.id === id);
+            if (alert) {
+                alert.status = 'resolved';
+                saveState();
+                renderSosAlerts();
+                showToast('অ্যালার্ট সমাধান করা হয়েছে', 'success');
+            }
+        }
+
+        function renderSosAlerts() {
+            const container = document.getElementById('sosAlerts');
+            const countEl = document.getElementById('activeSosCount');
+            if (!container) return;
+            const active = state.sosAlerts.filter(a => a.status === 'active');
+            if (countEl) countEl.textContent = active.length + ' টি অ্যালার্ট';
+
+            if (active.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-shield-alt"></i><p>কোনো অ্যাক্টিভ SOS অ্যালার্ট নেই</p></div>';
+                return;
+            }
+
+            container.innerHTML = active.slice().reverse().map(a => `
+                <div class="sos-alert">
+                    <div style="width:44px; height:44px; border-radius:50%; background:rgba(230,57,70,0.15);
+                                display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                        <i class="fas fa-exclamation-triangle" style="color:var(--accent); font-size:1.1rem;"></i>
+                    </div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700; color:var(--accent); font-size:0.95rem; font-family:'Rajdhani',sans-serif;">
+                            SOS — ${locationNames[a.location]}
+                        </div>
+                        <div style="font-size:0.78rem; color:var(--muted); margin-top:2px;">
+                            <i class="fas fa-clock" style="margin-right:4px;"></i>${formatTime(a.timestamp)}
+                        </div>
+                    </div>
+                    <button class="btn btn-success btn-sm" onclick="resolveSos(${a.id})">
+                        <i class="fas fa-check"></i> সমাধান
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        const schoolRules = [
+            { title: 'ক্লাস ক্যাপ্টেনের ক্ষমতা', content: 'ক্লাস ক্যাপ্টেন শুধুমাত্র শ্রেণিকক্ষে অনুপস্থিতির সময় শৃঙ্খলা রক্ষার দায়িত্ব পান। ক্যাপ্টেনের কোনো নির্বাহী ক্ষমতা নেই এবং তিনি এককভাবে কোনো সিদ্ধান্ত নিতে পারবেন না।', keywords: ['ক্যাপ্টেন', 'ক্ষমতা', 'সিদ্ধান্ত', 'নেতা', 'দায়িত্ব', 'capta', 'power'] },
+            { title: 'হোমওয়ার্ক ছাড়', content: 'স্কুলের কোনো নিয়মে ক্লাস ক্যাপ্টেনকে হোমওয়ার্ক থেকে ছাড় দেওয়ার ক্ষমতা দেওয়া হয়নি। সকল শিক্ষার্থীকে সমানভাবে হোমওয়ার্ক জমা দিতে হবে।', keywords: ['হোমওয়ার্ক', 'ছাড়', 'homeork', 'homework', 'exempt', 'বাদ'] },
+            { title: 'টিফিনের কর', content: 'কোনো শিক্ষার্থীর টিফিন থেকে জোরপূর্বক বা আধা-জোর করে খাবার বা টাকা নেওয়া সম্পূর্ণ নিষিদ্ধ। এটি শাস্তিযোগ্য অপরাধ হিসেবে গণ্য হবে।', keywords: ['টিফিন', 'খাবার', 'চুরি', 'কর', 'টাকা', 'tiffin', 'tax', 'food', 'চাঁদা'] },
+            { title: 'ওয়াশরুম ব্রেক', content: 'ফ্রি পিরিয়ডে বা প্রয়োজনে ওয়াশরুমে যাওয়ার জন্য কোনো অনুমতি বা ফি লাগবে না। এটি প্রতিটি শিক্ষার্থীর মৌলিক অধিকার।', keywords: ['ওয়াশরুম', 'টয়লেট', 'ব্রেক', 'ফি', 'টাকা', 'washroom', 'toilet', 'fee', 'বাথরুম'] },
+            { title: 'সিট প্ল্যান নিয়ম', content: 'সিট প্ল্যান শুধুমাত্র ক্লাস টিচার নির্ধারণ করবেন। ক্যাপ্টেনের সিট প্ল্যান পরিবর্তনের কোনো ক্ষমতা নেই। উচ্চতা অনুযায়ী সাজানোর কোনো অফিসিয়াল নিয়ম নেই।', keywords: ['সিট', 'প্ল্যান', 'বসা', 'সারি', 'উচ্চতা', 'seat', 'plan', 'arrange'] },
+            { title: 'PT পিরিয়ড নিয়ম', content: 'PT পিরিয়ডে সকল শিক্ষার্থীকে অংশগ্রহণ করতে হবে। ক্যাপ্টেনের PT পিরিয়ডের কার্যক্রম পরিবর্তনের অধিকার নেই। লুডু বা অন্য কোনো ইনডোর গেম দিয়ে PT পিরিয়ড বদলানো যাবে না।', keywords: ['PT', 'খেলা', 'লুডু', 'দৌড়', 'পিরিয়ড', 'sports', 'ludo', 'exercise'] },
+            { title: 'ক্লাস টেস্ট সিলেবাস', content: 'ক্লাস টেস্টের সিলেবাস বিষয় শিক্ষক নির্ধারণ করবেন। ক্যাপ্টেন নিজে সিলেবাস বাড়াতে বা কমাতে পারবেন না। লেখকের জীবনী, বইয়ের বারকোড, ইনডেক্স ইত্যাদি পরীক্ষার সিলেবাসের অংশ নয়।', keywords: ['সিলেবাস', 'টেস্ট', 'পরীক্ষা', 'অধ্যায়', 'বারকোড', 'জীবনী', 'syllabus', 'test', 'exam', 'chapter'] },
+            { title: 'ক্যাপ্টেন নির্বাচন', content: 'ক্যাপ্টেন নির্বাচন গণতান্ত্রিক প্রক্রিয়ায় হবে। নির্বাচিত হওয়ার পর发明 ক্যাপ্টেন তার প্রতিশ্রুতি পালন করতে বাধ্য। প্রতিশ্রুতি ভঙ্গ করলে তাকে অপসারণ করা যাবে।', keywords: ['নির্বাচন', 'ভোট', 'প্রতিশ্রুতি', 'অপসারণ', 'ইমপিচ', 'election', 'vote', 'promise', 'impeach'] },
+            { title: 'দ্বিতীয় ও তৃতীয় ক্যাপ্টেনের ভূমিকা', content: 'দ্বিতীয় ক্যাপ্টেন (বিল্টু) ও তৃতীয় ক্যাপ্টেন (মিল্টু) প্রথম ক্যাপ্টেনের সিদ্ধান্তে সমান অংশীদার। প্রথম ক্যাপ্টেন তাদের উপেক্ষা করে একক সিদ্ধান্ত নিতে পারবেন না।', keywords: ['দ্বিতীয়', 'তৃতীয়', 'বিল্টু', 'মিল্টু', 'সহকারী', '2nd', '3rd', 'vice'] },
+            { title: 'শাস্তির ক্ষমতা', content: 'ক্যাপ্টেনের কোনো শিক্ষার্থীকে শাস্তি দেওয়ার ক্ষমতা নেই। শাস্তি শুধুমাত্র ক্লাস টিচার বা বিভাগীয় প্রধান দিতে পারবেন।', keywords: ['শাস্তি', 'বেত', 'দণ্ড', 'মার', 'punishment', 'beat', 'hit'] },
+            { title: 'হেডমাস্টারের নির্দেশ', content: 'হেডমাস্টারের নামে ভুয়া নিয়ম বানানো শাস্তিযোগ্য অপরাধ। হেডমাস্টারের কোনো নির্দেশ মৌখিকভাবে জানানো হলে তা লিখিতভাবে যাচাই করতে হবে।', keywords: ['হেডমাস্টার', 'প্রিন্সিপাল', 'নির্দেশ', 'headmaster', 'principal', 'order'] },
+            { title: 'অভিভাবক সমাবেশ', content: 'কোনো শিক্ষার্থী চাইলে অভিভাবকদের কাছে ক্যাপ্টেনের অত্যাচারের কথা জানাতে পারবে। ক্যাপ্টেন কাউকে এই অধিকার থেকে বিরত রাখতে পারবে না।', keywords: ['অভিভাবক', 'অভিযোগ', 'জানানো', 'parent', 'complain', 'report'] }
+        ];
+
+        function escapeRegex(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function searchFact() {
+            const query = document.getElementById('factSearchInput').value.trim().toLowerCase();
+            if (!query || query.length < 2) {
+                showToast('কিছু লিখে সার্চ করুন', 'warning');
+                return;
+            }
+
+            const results = [];
+            schoolRules.forEach(rule => {
+                const keywordMatch = rule.keywords.some(kw => query.includes(kw.toLowerCase()) || kw.toLowerCase().includes(query));
+                const contentMatch = rule.content.toLowerCase().includes(query) || rule.title.toLowerCase().includes(query);
+
+                if (keywordMatch || contentMatch) {
+                    results.push(rule);
+                }
+            });
+
+            const container = document.getElementById('factResults');
+            if (!container) return;
+
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="empty-state">
+                            <i class="fas fa-question-circle" style="color:var(--warning);"></i>
+                            <p>"${query}" — এই বিষয়ে কোনো নিয়ম পাওয়া যায়নি</p>
+                            <p style="font-size:0.78rem; margin-top:8px; color:var(--muted);">ভিন্ন শব্দ দিয়ে আবার চেষ্টা করুন</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = results.map(rule => {
+                let highlightedContent = rule.content;
+                if (query.length > 0) {
+                    const queryRegex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+                    highlightedContent = highlightedContent.replace(queryRegex, '<mark>$1</mark>');
+                }
+
+                rule.keywords.forEach(kw => {
+                    if (query.toLowerCase().includes(kw.toLowerCase()) || kw.toLowerCase().includes(query.toLowerCase())) {
+                        const kwRegex = new RegExp(`(${escapeRegex(kw)})`, 'gi');
+                        highlightedContent = highlightedContent.replace(kwRegex, '<mark>$1</mark>');
+                    }
+                });
+
+                return `
+                    <div class="fact-card">
+                        <div class="rule-title"><i class="fas fa-book" style="margin-right:8px;"></i>${rule.title}</div>
+                        <div class="rule-content">${highlightedContent}</div>
+                    </div>
+                `;
+            }).join('');
+
+            showToast(`${results.length}টি নিয়ম পাওয়া গেছে`, 'success');
+        }
+
+        const factSearchInputEl = document.getElementById('factSearchInput');
+        if (factSearchInputEl) {
+            factSearchInputEl.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') searchFact();
+            });
+        }
+
+        const codeInputEl = document.getElementById('codeInput');
+        if (codeInputEl) {
+            codeInputEl.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') handleLogin();
+            });
+        }
+
+        const rollInputEl = document.getElementById('rollInput');
+        if (rollInputEl) {
+            rollInputEl.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') document.getElementById('codeInput').focus();
+            });
+        }
+
+        function init() {
+            loadState();
+            initStudents();
+            initLedger();
+
+            updateStrikeBar();
+            renderComplaints();
+
+            renderStudents();
+            renderGrid();
+
+            updateLedgerUI();
+
+            renderSosAlerts();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebarOverlay').classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
